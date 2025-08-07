@@ -66,7 +66,7 @@ Zotero.Zotero2Readwise.Background = {
 
   async getSettings() {
     try {
-      const getPref = (key, defaultValue) =e {
+      const getPref = (key, defaultValue) => {
         try {
           const fullKey = `extensions.zotero2readwise.${key}`;
           if (Zotero.Prefs.has(fullKey)) {
@@ -101,7 +101,7 @@ Zotero.Zotero2Readwise.Background = {
 
   async saveSettings(settings) {
     try {
-      Object.keys(settings).forEach(key =e {
+      Object.keys(settings).forEach(key => {
         const value = settings[key];
         const fullKey = `extensions.zotero2readwise.${key}`;
         Zotero.Prefs.set(fullKey, value);
