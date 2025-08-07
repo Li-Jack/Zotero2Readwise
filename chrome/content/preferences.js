@@ -270,10 +270,20 @@ var Zotero2ReadwisePreferences = {
 };
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    Zotero2ReadwisePreferences.init();
-  });
-} else {
-  Zotero2ReadwisePreferences.init();
+function initializePreferences() {
+  try {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        Zotero2ReadwisePreferences.init();
+      });
+    } else {
+      // DOM already loaded
+      Zotero2ReadwisePreferences.init();
+    }
+  } catch (error) {
+    console.error('Error initializing preferences:', error);
+  }
 }
+
+// Call initialization
+initializePreferences();

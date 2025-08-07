@@ -64,7 +64,10 @@ function startup({ id, version, rootURI }) {
         Zotero.debug('Zotero2Readwise: Registering preferences pane...');
         
         if (!Zotero.PreferencePanes) {
-          throw new Error('Zotero.PreferencePanes is not available');
+          Zotero.debug('Zotero2Readwise: Zotero.PreferencePanes is not available, trying fallback...');
+          // Try fallback method
+          this.addPreferencesMenuItem();
+          return;
         }
         
         const prefPaneConfig = {
@@ -77,7 +80,11 @@ function startup({ id, version, rootURI }) {
           helpURL: 'https://github.com/e-alizadeh/Zotero2Readwise'
         };
         
-        Zotero.debug(`Zotero2Readwise: Registering pane with config: ${JSON.stringify(prefPaneConfig, null, 2)}`);
+        Zotero.debug(`Zotero2Readwise: Registering pane with config:`);
+        Zotero.debug(`- pluginID: ${prefPaneConfig.pluginID}`);
+        Zotero.debug(`- src: ${prefPaneConfig.src}`);
+        Zotero.debug(`- scripts: ${prefPaneConfig.scripts}`);
+        Zotero.debug(`- stylesheets: ${prefPaneConfig.stylesheets}`);
         
         Zotero.PreferencePanes.register(prefPaneConfig);
         
@@ -85,7 +92,79 @@ function startup({ id, version, rootURI }) {
       } catch (error) {
         Zotero.debug(`Zotero2Readwise: Failed to register preferences pane: ${error.message}`);
         Zotero.debug(`Stack: ${error.stack}`);
-        throw error;
+        
+        // Try fallback method
+        Zotero.debug('Zotero2Readwise: Attempting fallback preferences method...');
+        this.addPreferencesMenuItem();
+      }
+    },
+    
+    addPreferencesMenuItem() {
+      try {
+        Zotero.debug('Zotero2Readwise: Adding preferences menu item as fallback...');
+        
+        const win = Zotero.getMainWindow();
+        if (!win || !win.document) {
+          Zotero.debug('Zotero2Readwise: Main window not available for menu item');
+          return;
+        }
+        
+        const doc = win.document;
+        
+        // Add preferences menu item to Tools menu
+        const menuitem = doc.createXULElement('menuitem');
+        menuitem.id = 'zotero2readwise-preferences-menuitem';
+        menuitem.setAttribute('label', 'Zotero2Readwise 设置');
+        menuitem.addEventListener('command', () => {
+          this.openPreferencesDialog();
+        });
+        
+        const toolsMenu = doc.getElementById('menu_ToolsPopup');
+        if (toolsMenu) {
+          toolsMenu.appendChild(menuitem);
+          Zotero.debug('Zotero2Readwise: Preferences menu item added successfully');
+        } else {
+          Zotero.debug('Zotero2Readwise: Could not find Tools menu');
+        }
+      } catch (error) {
+        Zotero.debug(`Zotero2Readwise: Error adding preferences menu item: ${error.message}`);
+      }
+    },
+    
+    openPreferencesDialog() {
+      try {
+        Zotero.debug('Zotero2Readwise: Opening preferences dialog manually...');
+        
+        const win = window.openDialog(
+          this.rootURI + 'chrome/content/preferences.xhtml',
+          'zotero2readwise-preferences',
+          'chrome,centerscreen,resizable=yes,width=600,height=500'
+        );
+        
+        if (win) {
+          Zotero.debug('Zotero2Readwise: Preferences dialog opened');
+          
+          // Load script manually if needed
+          win.addEventListener('load', () => {
+            Zotero.debug('Zotero2Readwise: Preferences dialog loaded');
+            
+            if (!win.Zotero2ReadwisePreferences) {
+              Zotero.debug('Zotero2Readwise: Loading preferences script manually...');
+              try {
+                Services.scriptloader.loadSubScript(
+                  this.rootURI + 'chrome/content/preferences.js',
+                  win,
+                  'UTF-8'
+                );
+                Zotero.debug('Zotero2Readwise: Preferences script loaded manually');
+              } catch (scriptError) {
+                Zotero.debug(`Zotero2Readwise: Error loading preferences script: ${scriptError.message}`);
+              }
+            }
+          });
+        }
+      } catch (error) {
+        Zotero.debug(`Zotero2Readwise: Error opening preferences dialog: ${error.message}`);
       }
     },
     
