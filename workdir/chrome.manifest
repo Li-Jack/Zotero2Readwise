@@ -1,0 +1,7 @@
+content zotero2readwise chrome/content/
+skin zotero2readwise default chrome/skin/default/
+locale zotero2readwise en-US chrome/locale/en-US/
+pref defaults preferences/prefs.js
+
+# Options dialog
+pref("extensions.zotero2readwise@ealizadeh.com.description", "chrome://zotero2readwise/locale/zotero2readwise.properties");

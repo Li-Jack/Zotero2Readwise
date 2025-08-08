@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://zotero/skin/zotero.css" type="text/css"?>
+<?xml-stylesheet href="chrome://zotero2readwise/skin/default/zotero2readwise.css" type="text/css"?>
+
+<vbox id="zotero2readwise-prefs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <!-- Header -->
+    <hbox align="center" style="margin-bottom: 15px;">
+      <html:img src="chrome://zotero/skin/16/universal/sync.svg" style="width: 24px; height: 24px; margin-right: 10px;" />
+      <html:h1 style="margin: 0; font-size: 18px; font-weight: bold;">Zotero2Readwise 设置</html:h1>
+    </hbox>
+    
+    <vbox flex="1" style="padding: 20px;">
+    
+    <!-- API 配置 -->
+    <groupbox>
+      <label><html:h2>API 配置</html:h2></label>
+      
+      <hbox align="center">
+        <label for="readwiseToken" value="Readwise Access Token:" width="150"/>
+        <html:input type="password" id="readwiseToken" flex="1" required="true" />
+        <button label="获取" oncommand="Zotero.launchURL('https://readwise.io/access_token')" />
+      </hbox>
+      
+      <hbox align="center">
+        <label for="zoteroKey" value="Zotero API Key:" width="150"/>
+        <html:input type="password" id="zoteroKey" flex="1" required="true" />
+        <button label="获取" oncommand="Zotero.launchURL('https://www.zotero.org/settings/keys')" />
+      </hbox>
+      
+      <hbox align="center">
+        <label for="zoteroLibraryId" value="Zotero Library ID:" width="150"/>
+        <html:input type="text" id="zoteroLibraryId" flex="1" required="true" />
+        <description style="margin-left: 150px">在 Zotero API Keys 页面可以找到您的 User ID</description>
+      </hbox>
+    </groupbox>
+    
+    <!-- 同步选项 -->
+    <groupbox>
+      <label><html:h2>同步选项</html:h2></label>
+      
+      <checkbox id="includeAnnotations" label="包含注释 (高亮和评论)" checked="true" />
+      <checkbox id="includeNotes" label="包含笔记" />
+      <checkbox id="useSince" label="仅同步上次运行后的新项目" checked="true" />
+    </groupbox>
+    
+    <!-- 操作按钮 -->
+    <vbox>
+      <description style="text-align: center; color: #666; margin-bottom: 10px;">
+        注意：请点击“保存设置”按钮保存您的更改
+      </description>
+      <hbox pack="center">
+        <button id="saveSettings" label="保存设置" oncommand="Zotero2ReadwisePreferences.saveSettings()" style="font-weight: bold;" />
+        <button id="testConnection" label="测试连接" oncommand="Zotero2ReadwisePreferences.testConnection()" />
+        <button id="syncNow" label="立即同步" oncommand="Zotero2ReadwisePreferences.syncNow()" />
+      </hbox>
+    </vbox>
+    
+    <!-- 状态显示 -->
+    <hbox pack="center">
+      <description id="status" style="margin-top: 10px; font-weight: bold;" />
+    </hbox>
+  </vbox>
+</vbox>
