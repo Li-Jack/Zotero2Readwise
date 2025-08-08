@@ -1,0 +1,7 @@
+content zotero2readwise chrome/content/
+skin zotero2readwise default chrome/skin/
+locale zotero2readwise en-US chrome/locale/en-US/
+locale zotero2readwise zh-CN chrome/locale/zh-CN/
+
+# Default preferences
+pref defaults/preferences/prefs.js

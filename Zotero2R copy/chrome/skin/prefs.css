@@ -1,0 +1,281 @@
+/* Zotero2Readwise Preference Pane Styles */
+
+/* Base Styles */
+#zotero2readwise-prefs {
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+groupbox {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+groupbox label h2 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Grid Layout */
+grid {
+  margin: 15px 0;
+}
+
+row {
+  margin-bottom: 12px;
+}
+
+row > label {
+  width: 150px;
+  text-align: right;
+  margin-right: 10px;
+  font-weight: 500;
+}
+
+/* Input Fields */
+.api-input,
+input[type="text"],
+input[type="password"] {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  background: white;
+}
+
+.api-input:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #4A90E2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+/* Help Links */
+.help-link {
+  margin-left: 10px;
+  color: #4A90E2;
+  text-decoration: none;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.help-link:hover {
+  text-decoration: underline;
+}
+
+.help-text {
+  margin-left: 10px;
+  color: #777;
+  font-size: 11px;
+}
+
+/* Checkboxes */
+checkbox {
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+checkbox label {
+  cursor: pointer;
+}
+
+/* Color Filter Grid */
+.color-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 10px 0;
+  padding: 10px;
+  background: white;
+  border-radius: 4px;
+}
+
+.color-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.color-option input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.color-label {
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.color-label.yellow {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.color-label.red {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.color-label.green {
+  background: #d4edda;
+  color: #155724;
+}
+
+.color-label.blue {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.color-label.purple {
+  background: #e7d8f5;
+  color: #563d7c;
+}
+
+.color-label.magenta {
+  background: #f5d8e7;
+  color: #7c3d56;
+}
+
+.color-label.orange {
+  background: #ffe5cc;
+  color: #8a5200;
+}
+
+.color-label.gray {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+/* Action Buttons */
+.action-buttons {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  gap: 10px;
+}
+
+button,
+.action-button,
+.primary-button,
+.secondary-button,
+.danger-button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-button,
+.secondary-button {
+  background: #6c757d;
+  color: white;
+}
+
+.action-button:hover,
+.secondary-button:hover {
+  background: #5a6268;
+}
+
+.primary-button {
+  background: #4A90E2;
+  color: white;
+}
+
+.primary-button:hover {
+  background: #357ABD;
+}
+
+.danger-button {
+  background: #dc3545;
+  color: white;
+}
+
+.danger-button:hover {
+  background: #c82333;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Status Messages */
+.status-message {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+  display: none;
+}
+
+.status-message.show {
+  display: block;
+}
+
+.status-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.status-message.info {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.status-message.warning {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  #zotero2readwise-prefs {
+    background: #1e1e1e;
+    color: #e0e0e0;
+  }
+  
+  groupbox {
+    background: #2a2a2a;
+    border-color: #444;
+  }
+  
+  groupbox label h2 {
+    color: #f0f0f0;
+  }
+  
+  .api-input,
+  input[type="text"],
+  input[type="password"] {
+    background: #3a3a3a;
+    color: #e0e0e0;
+    border-color: #555;
+  }
+  
+  .color-filter-grid {
+    background: #3a3a3a;
+  }
+  
+  .help-text {
+    color: #999;
+  }
+}

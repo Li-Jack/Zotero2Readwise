@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Zotero2Readwise",
+  "version": "1.2.0",
+  "description": "Export your Zotero annotations and notes to Readwise",
+  "homepage_url": "https://github.com/e-alizadeh/Zotero2Readwise",
+  "author": "Essi Alizadeh",
+  "icons": {
+    "48": "chrome/content/icons/icon48.png",
+    "96": "chrome/content/icons/icon96.png"
+  },
+  "applications": {
+    "zotero": {
+      "id": "zotero2readwise@ealizadeh.com",
+      "strict_min_version": "6.999",
+      "strict_max_version": "7.0.*",
+      "update_url": "https://github.com/e-alizadeh/Zotero2Readwise/releases/latest/download/updates.json"
+    }
+  }
+}

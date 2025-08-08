@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      xmlns:html="http://www.w3.org/1999/xhtml">
+  
+  <!-- Load CSS -->
+  <html:style><![CDATA[
+    .groupbox {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin: 10px 0;
+      padding: 15px;
+      background: #f9f9f9;
+    }
+    
+    .groupbox h2 {
+      margin: 0 0 15px 0;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-row {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .form-row label {
+      min-width: 150px;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    
+    .input-group {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .api-input {
+      flex-grow: 1;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    
+    .help-link {
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 12px;
+    }
+    
+    .help-link:hover {
+      text-decoration: underline;
+    }
+    
+    .help-text {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    
+    .checkbox-label input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    
+    .action-buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .action-buttons button {
+      margin: 0 5px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .primary-button {
+      background: #0066cc;
+      color: white;
+    }
+    
+    .secondary-button {
+      background: #666;
+      color: white;
+    }
+    
+    .danger-button {
+      background: #cc0000;
+      color: white;
+    }
+    
+    .action-button {
+      background: #0066cc;
+      color: white;
+    }
+    
+    .status-message {
+      text-align: center;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .status-message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      display: block;
+    }
+    
+    .status-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      display: block;
+    }
+  ]]></html:style>
+  
+  <!-- Load JavaScript -->
+  <script type="application/javascript" src="chrome://zotero2readwise/content/prefs.js"/>
+  
+  <vbox id="zotero2readwise-prefs" flex="1">
+    
+    <!-- API Configuration -->
+    <html:div class="groupbox">
+      <html:h2>API 配置</html:h2>
+      
+      <html:div class="form-row">
+        <html:label for="pref-readwise-token">Readwise Access Token:</html:label>
+        <html:div class="input-group">
+          <html:input 
+            type="password"
+            id="pref-readwise-token"
+            class="api-input"
+            placeholder="输入您的 Readwise Access Token"
+          />
+          <html:a href="https://readwise.io/access_token" target="_blank" class="help-link">
+            获取 Token
+          </html:a>
+        </html:div>
+      </html:div>
+      
+      <html:div class="form-row">
+        <html:label for="pref-zotero-key">Zotero API Key:</html:label>
+        <html:div class="input-group">
+          <html:input 
+            type="password"
+            id="pref-zotero-key"
+            class="api-input"
+            placeholder="输入您的 Zotero API Key"
+          />
+          <html:a href="https://www.zotero.org/settings/keys" target="_blank" class="help-link">
+            获取 API Key
+          </html:a>
+        </html:div>
+      </html:div>
+      
+      <html:div class="form-row">
+        <html:label for="pref-library-id">Zotero Library ID:</html:label>
+        <html:div class="input-group">
+          <html:input 
+            type="text"
+            id="pref-library-id"
+            class="api-input"
+            placeholder="输入您的 Library ID (User ID)"
+          />
+          <html:span class="help-text">在 Zotero API Keys 页面可找到</html:span>
+        </html:div>
+      </html:div>
+      
+      <html:div style="text-align: right; margin-top: 15px;">
+        <html:button id="test-connection" class="action-button">
+          测试连接
+        </html:button>
+      </html:div>
+    </html:div>
+    
+    <!-- Sync Options -->
+    <html:div class="groupbox">
+      <html:h2>同步选项</html:h2>
+      
+      <html:label class="checkbox-label">
+        <html:input type="checkbox" id="pref-include-annotations" />
+        <html:span>包含注释（高亮和评论）</html:span>
+      </html:label>
+      
+      <html:label class="checkbox-label">
+        <html:input type="checkbox" id="pref-include-notes" />
+        <html:span>包含笔记</html:span>
+      </html:label>
+      
+      <html:label class="checkbox-label">
+        <html:input type="checkbox" id="pref-use-since" />
+        <html:span>仅同步上次运行后的新项目</html:span>
+      </html:label>
+    </html:div>
+    
+    <!-- Filter Options -->
+    <html:div class="groupbox">
+      <html:h2>过滤选项</html:h2>
+      
+      <html:div style="margin-bottom: 15px;">
+        <html:label style="font-weight: bold; display: block; margin-bottom: 10px;">按标签过滤:</html:label>
+        <html:input 
+          type="text"
+          id="pref-filter-tags"
+          placeholder="输入标签，用逗号分隔"
+          style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 3px;"
+        />
+      </html:div>
+      
+      <html:label class="checkbox-label">
+        <html:input type="checkbox" id="pref-include-filtered-tags" />
+        <html:span>在笔记中包含过滤标签</html:span>
+      </html:label>
+    </html:div>
+    
+    <!-- Action Buttons -->
+    <html:div class="action-buttons">
+      <html:button id="sync-now" class="primary-button">
+        立即同步
+      </html:button>
+      <html:button id="export-failed" class="secondary-button">
+        导出失败项
+      </html:button>
+      <html:button id="clear-cache" class="danger-button">
+        清除缓存
+      </html:button>
+    </html:div>
+    
+    <!-- Status Messages -->
+    <html:div id="status-message" class="status-message"></html:div>
+    
+  </vbox>
+</vbox>
