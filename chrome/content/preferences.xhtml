@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://zotero/skin/zotero.css" type="text/css"?>
+<?xml-stylesheet href="chrome://zotero2readwise/skin/default/zotero2readwise.css" type="text/css"?>
+
+<vbox id="zotero2readwise-prefs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <!-- Header -->
+    <hbox align="center" style="margin-bottom: 15px;">
+      <html:img src="chrome://zotero/skin/16/universal/sync.svg" style="width: 24px; height: 24px; margin-right: 10px;" />
+      <html:h1 style="margin: 0; font-size: 18px; font-weight: bold;">Zotero2Readwise 设置</html:h1>
+    </hbox>
+    
+    <!-- API 配置 -->
+    <groupbox style="margin-bottom: 15px;">
+      <label><html:h2 style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">API 配置</html:h2></label>
+      
+      <vbox style="gap: 10px;">
+        <hbox align="center">
+          <label for="readwiseToken" value="Readwise Access Token:" style="min-width: 150px; font-weight: 500;"/>
+          <html:input type="password" id="readwiseToken" style="flex: 1; margin: 0 10px;" placeholder="输入您的 Readwise Access Token" />
+          <button label="获取" oncommand="Zotero.launchURL('https://readwise.io/access_token')" style="min-width: 60px;" />
+        </hbox>
+        
+        <hbox align="center">
+          <label for="zoteroKey" value="Zotero API Key:" style="min-width: 150px; font-weight: 500;"/>
+          <html:input type="password" id="zoteroKey" style="flex: 1; margin: 0 10px;" placeholder="输入您的 Zotero API Key" />
+          <button label="获取" oncommand="Zotero.launchURL('https://www.zotero.org/settings/keys')" style="min-width: 60px;" />
+        </hbox>
+        
+        <hbox align="center">
+          <label for="zoteroLibraryId" value="Zotero Library ID:" style="min-width: 150px; font-weight: 500;"/>
+          <html:input type="text" id="zoteroLibraryId" style="flex: 1; margin: 0 10px;" placeholder="输入您的 Zotero Library ID" />
+          <spacer style="min-width: 60px;" />
+        </hbox>
+        
+        <description style="margin-left: 150px; font-size: 12px; color: #666;">在 Zotero API Keys 页面可以找到您的 User ID</description>
+      </vbox>
+    </groupbox>
+    
+    <!-- 同步选项 -->
+    <groupbox style="margin-bottom: 15px;">
+      <label><html:h2 style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">同步选项</html:h2></label>
+      
+      <vbox style="gap: 8px;">
+        <checkbox id="includeAnnotations" label="包含注释 (高亮和评论)" checked="true" style="font-weight: 500;" />
+        <checkbox id="includeNotes" label="包含笔记" style="font-weight: 500;" />
+        <checkbox id="useSince" label="仅同步上次运行后的新项目" checked="true" style="font-weight: 500;" />
+      </vbox>
+    </groupbox>
+    
+    <!-- 操作按钮 -->
+    <groupbox style="margin-bottom: 15px;">
+      <label><html:h2 style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">操作</html:h2></label>
+      
+      <hbox style="gap: 10px;">
+        <button id="saveSettings" label="保存设置" oncommand="Zotero2ReadwisePreferences.saveSettings()" 
+                style="padding: 8px 16px; font-weight: 500; background: #007acc; color: white; border: none; border-radius: 4px;" />
+        <button id="testConnection" label="测试连接" oncommand="Zotero2ReadwisePreferences.testConnection()" 
+                style="padding: 8px 16px; font-weight: 500; background: #28a745; color: white; border: none; border-radius: 4px;" />
+        <button id="syncNow" label="立即同步" oncommand="Zotero2ReadwisePreferences.syncNow()" 
+                style="padding: 8px 16px; font-weight: 500; background: #17a2b8; color: white; border: none; border-radius: 4px;" />
+      </hbox>
+    </groupbox>
+    
+    <!-- 状态显示 -->
+    <groupbox id="statusBox" style="margin-bottom: 15px;" hidden="true">
+      <label><html:h2 style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">状态</html:h2></label>
+      <hbox style="padding: 10px; background: #f8f9fa; border-radius: 4px; border: 1px solid #dee2e6;">
+        <html:img id="statusIcon" src="" style="width: 16px; height: 16px; margin-right: 8px;" />
+        <description id="status" style="font-weight: 500;" />
+      </hbox>
+    </groupbox>
+</vbox>

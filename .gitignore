@@ -1,23 +1,25 @@
 # Exclude zotero-plugin-template directory
 zotero-plugin-template/
 
-# OS specific files
+# macOS system files
 .DS_Store
+.AppleDouble
+.LSOverride
 Thumbs.db
 
-# IDE files
-.idea/
-.vscode/
-*.swp
-*.swo
+# Build artifacts
+*.xpi
+build/
+dist/
 
 # Node modules
 node_modules/
 
-# Build outputs
-dist/
-build/
-*.xpi
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # Logs
 *.log
@@ -26,3 +28,6 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Third-party toolkit (embedded git repo)
+zotero-plugin-toolkit/
