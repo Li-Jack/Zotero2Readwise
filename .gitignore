@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node modules
 node_modules/
 
@@ -16,10 +17,31 @@ dist/
 .env.*.local
 
 # IDE
+=======
+# Exclude zotero-plugin-template directory
+zotero-plugin-template/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Build artifacts
+*.xpi
+build/
+dist/
+
+# Node modules
+node_modules/
+
+# IDE files
+>>>>>>> 3130168114a5d785f34f9724e8d56a54809ef1f9
 .vscode/
 .idea/
 *.swp
 *.swo
+<<<<<<< HEAD
 *~
 
 # OS
@@ -42,3 +64,23 @@ coverage/
 tmp/
 temp/
 *.tmp
+=======
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Third-party toolkit (embedded git repo)
+zotero-plugin-toolkit/
+
+# Trae documents and Vercel deployment files
+.trae/
+.vercel/
+
+# macOS system files (duplicate entry cleaned up)
+.DS_Store
+>>>>>>> 3130168114a5d785f34f9724e8d56a54809ef1f9
