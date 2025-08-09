@@ -1,131 +1,185 @@
+/**
+ * Preference Scripts
+ * 首选项面板交互逻辑
+ */
+
 import { config } from "../../package.json";
 import { getString } from "../utils/locale";
 
 export async function registerPrefsScripts(_window: Window) {
-  // This function is called when the prefs window is opened
-  // See addon/content/preferences.xhtml onpaneload
+  // @ts-ignore
+  const Zotero = _window.Zotero || ztoolkit.getGlobal("Zotero");
+  
   if (!addon.data.prefs) {
     addon.data.prefs = {
       window: _window,
-      columns: [
-        {
-          dataKey: "title",
-          label: getString("prefs-table-title"),
-          fixedWidth: true,
-          width: 100,
-        },
-        {
-          dataKey: "detail",
-          label: getString("prefs-table-detail"),
-        },
-      ],
-      rows: [
-        {
-          title: "Orange",
-          detail: "It's juicy",
-        },
-        {
-          title: "Banana",
-          detail: "It's sweet",
-        },
-        {
-          title: "Apple",
-          detail: "I mean the fruit APPLE",
-        },
-      ],
     };
   } else {
     addon.data.prefs.window = _window;
   }
-  updatePrefsUI();
-  bindPrefEvents();
+
+  // Setup event listeners
+  setupEventListeners(_window);
+  
+  // Populate group libraries
+  await populateGroupLibraries(_window);
+  
+  ztoolkit.log("Preference scripts registered");
 }
 
-async function updatePrefsUI() {
-  // You can initialize some UI elements on prefs window
-  // with addon.data.prefs.window.document
-  // Or bind some events to the elements
-  const renderLock = ztoolkit.getGlobal("Zotero").Promise.defer();
-  if (addon.data.prefs?.window == undefined) return;
-  const tableHelper = new ztoolkit.VirtualizedTable(addon.data.prefs?.window)
-    .setContainerId(`${config.addonRef}-table-container`)
-    .setProp({
-      id: `${config.addonRef}-prefs-table`,
-      // Do not use setLocale, as it modifies the Zotero.Intl.strings
-      // Set locales directly to columns
-      columns: addon.data.prefs?.columns,
-      showHeader: true,
-      multiSelect: true,
-      staticColumns: true,
-      disableFontSizeScaling: true,
-    })
-    .setProp("getRowCount", () => addon.data.prefs?.rows.length || 0)
-    .setProp(
-      "getRowData",
-      (index) =>
-        addon.data.prefs?.rows[index] || {
-          title: "no data",
-          detail: "no data",
-        },
-    )
-    // Show a progress window when selection changes
-    .setProp("onSelectionChange", (selection) => {
-      new ztoolkit.ProgressWindow(config.addonName)
-        .createLine({
-          text: `Selected line: ${addon.data.prefs?.rows
-            .filter((v, i) => selection.isSelected(i))
-            .map((row) => row.title)
-            .join(",")}`,
-          progress: 100,
-        })
-        .show();
-    })
-    // When pressing delete, delete selected line and refresh table.
-    // Returning false to prevent default event.
-    .setProp("onKeyDown", (event: KeyboardEvent) => {
-      if (event.key == "Delete" || (Zotero.isMac && event.key == "Backspace")) {
-        addon.data.prefs!.rows =
-          addon.data.prefs?.rows.filter(
-            (v, i) => !tableHelper.treeInstance.selection.isSelected(i),
-          ) || [];
-        tableHelper.render();
-        return false;
+function setupEventListeners(_window: Window) {
+  // @ts-ignore
+  const Zotero = _window.Zotero || ztoolkit.getGlobal("Zotero");
+  const prefs = Zotero.Prefs;
+  const prefix = `extensions.zotero.${config.addonRef}.`;
+  
+  // Test connection button
+  const testButton = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-testConnection`) as HTMLButtonElement;
+  if (testButton) {
+    testButton.addEventListener("click", async () => {
+      const apiTokenInput = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-apiToken`) as HTMLInputElement;
+      const apiToken = apiTokenInput?.value.trim();
+      
+      if (!apiToken) {
+        _window.alert("Please enter your Readwise API token first.");
+        return;
       }
-      return true;
-    })
-    // For find-as-you-type
-    .setProp(
-      "getRowString",
-      (index) => addon.data.prefs?.rows[index].title || "",
-    )
-    // Render the table.
-    .render(-1, () => {
-      renderLock.resolve();
+      
+      testButton.disabled = true;
+      testButton.textContent = "Testing...";
+      
+      try {
+        // Create a simple test request to Readwise API
+        const response = await fetch("https://readwise.io/api/v2/auth/", {
+          headers: {
+            "Authorization": `Token ${apiToken}`
+          }
+        });
+        
+        if (response.ok) {
+          _window.alert("Connection successful! Your API token is valid.");
+        } else {
+          _window.alert("Connection failed. Please check your API token.");
+        }
+      } catch (error: any) {
+        _window.alert(`Connection failed: ${error.message}`);
+      } finally {
+        testButton.disabled = false;
+        testButton.textContent = getString("pref-test-connection") || "Test Connection";
+      }
     });
-  await renderLock.promise;
-  ztoolkit.log("Preference table rendered!");
+  }
+  
+  // Sync scope radio buttons
+  const syncScopeRadios = _window.document.querySelectorAll(`#zotero-prefpane-${config.addonRef}-syncScope input`) as NodeListOf<HTMLInputElement>;
+  syncScopeRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      const groupsSelect = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-selectedGroups`) as HTMLSelectElement;
+      if (groupsSelect) {
+        groupsSelect.disabled = radio.value !== "selectedGroups";
+      }
+    });
+  });
+  
+  // Auto sync interval checkbox
+  const autoSyncIntervalCheckbox = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-autoSyncInterval`) as HTMLInputElement;
+  if (autoSyncIntervalCheckbox) {
+    autoSyncIntervalCheckbox.addEventListener("change", () => {
+      const syncIntervalInput = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-syncIntervalMinutes`) as HTMLInputElement;
+      if (syncIntervalInput) {
+        syncIntervalInput.disabled = !autoSyncIntervalCheckbox.checked;
+      }
+    });
+  }
+  
+  // Background sync checkbox
+  const enableBackgroundSyncCheckbox = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-enableBackgroundSync`) as HTMLInputElement;
+  if (enableBackgroundSyncCheckbox) {
+    enableBackgroundSyncCheckbox.addEventListener("change", () => {
+      const debounceInput = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-annotationDebounceDelay`) as HTMLInputElement;
+      const listenAnnotations = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-listenToAnnotations`) as HTMLInputElement;
+      const listenItems = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-listenToItems`) as HTMLInputElement;
+      
+      const isEnabled = enableBackgroundSyncCheckbox.checked;
+      if (debounceInput) debounceInput.disabled = !isEnabled;
+      if (listenAnnotations) listenAnnotations.disabled = !isEnabled;
+      if (listenItems) listenItems.disabled = !isEnabled;
+    });
+  }
+  
+  // Scheduled sync checkbox
+  const enableScheduledSyncCheckbox = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-enableScheduledSync`) as HTMLInputElement;
+  if (enableScheduledSyncCheckbox) {
+    enableScheduledSyncCheckbox.addEventListener("change", () => {
+      const intervalInput = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-syncIntervalMinutes`) as HTMLInputElement;
+      if (intervalInput) {
+        intervalInput.disabled = !enableScheduledSyncCheckbox.checked;
+      }
+    });
+  }
+  
+  // Initialize disabled states
+  const syncScope = _window.document.querySelector(`#zotero-prefpane-${config.addonRef}-syncScope input:checked`) as HTMLInputElement;
+  if (syncScope) {
+    const groupsSelect = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-selectedGroups`) as HTMLSelectElement;
+    if (groupsSelect) {
+      groupsSelect.disabled = syncScope.value !== "selectedGroups";
+    }
+  }
+  
+  const syncIntervalInput = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-syncIntervalMinutes`) as HTMLInputElement;
+  if (syncIntervalInput && autoSyncIntervalCheckbox) {
+    syncIntervalInput.disabled = !autoSyncIntervalCheckbox.checked;
+  }
+  
+  // Initialize background sync controls
+  const backgroundEnabled = prefs.get(`${prefix}enableBackgroundSync`);
+  const scheduledEnabled = prefs.get(`${prefix}enableScheduledSync`);
+  
+  const debounceInput = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-annotationDebounceDelay`) as HTMLInputElement;
+  const listenAnnotations = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-listenToAnnotations`) as HTMLInputElement;
+  const listenItems = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-listenToItems`) as HTMLInputElement;
+  
+  if (debounceInput) debounceInput.disabled = !backgroundEnabled;
+  if (listenAnnotations) listenAnnotations.disabled = !backgroundEnabled;
+  if (listenItems) listenItems.disabled = !backgroundEnabled;
+  
+  if (syncIntervalInput && enableScheduledSyncCheckbox) {
+    syncIntervalInput.disabled = !scheduledEnabled;
+  }
 }
 
-function bindPrefEvents() {
-  addon.data
-    .prefs!.window.document?.querySelector(
-      `#zotero-prefpane-${config.addonRef}-enable`,
-    )
-    ?.addEventListener("command", (e: Event) => {
-      ztoolkit.log(e);
-      addon.data.prefs!.window.alert(
-        `Successfully changed to ${(e.target as XUL.Checkbox).checked}!`,
-      );
-    });
-
-  addon.data
-    .prefs!.window.document?.querySelector(
-      `#zotero-prefpane-${config.addonRef}-input`,
-    )
-    ?.addEventListener("change", (e: Event) => {
-      ztoolkit.log(e);
-      addon.data.prefs!.window.alert(
-        `Successfully changed to ${(e.target as HTMLInputElement).value}!`,
-      );
-    });
+async function populateGroupLibraries(_window: Window) {
+  // @ts-ignore
+  const Zotero = _window.Zotero || ztoolkit.getGlobal("Zotero");
+  
+  const groupsSelect = _window.document.getElementById(`zotero-prefpane-${config.addonRef}-selectedGroups`) as HTMLSelectElement;
+  if (!groupsSelect) return;
+  
+  // Clear existing options
+  groupsSelect.innerHTML = "";
+  
+  try {
+    // Get all group libraries
+    const groups = Zotero.Groups.getAll();
+    
+    // Add options for each group
+    for (const group of groups) {
+      const option = _window.document.createElement("option");
+      option.value = String(group.libraryID);
+      option.textContent = group.name;
+      groupsSelect.appendChild(option);
+    }
+    
+    // If no groups, add a placeholder
+    if (groups.length === 0) {
+      const option = _window.document.createElement("option");
+      option.value = "";
+      option.textContent = "(No group libraries available)";
+      option.disabled = true;
+      groupsSelect.appendChild(option);
+    }
+  } catch (error) {
+    ztoolkit.log("Error populating group libraries:", error);
+  }
 }

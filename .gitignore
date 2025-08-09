@@ -6,6 +6,10 @@ node_modules/
 build/
 dist/
 
+# Package files
+*.xpi
+*.zip
+
 # Environment files
 .env
 .env.local

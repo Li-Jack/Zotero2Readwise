@@ -7,8 +7,25 @@
 declare namespace _ZoteroTypes {
   interface Prefs {
     PluginPrefsMap: {
-      "enable": boolean;
-      "input": string;
+      "apiToken": string;
+      "syncScope": string;
+      "selectedGroups": string;
+      "syncHighlights": boolean;
+      "syncNotes": boolean;
+      "colorStrategy": string;
+      "autoSyncOnStart": boolean;
+      "autoSyncInterval": boolean;
+      "syncIntervalMinutes": number;
+      "enableBackgroundSync": boolean;
+      "enableScheduledSync": boolean;
+      "syncOnStartup": boolean;
+      "listenToAnnotations": boolean;
+      "listenToItems": boolean;
+      "annotationDebounceDelay": number;
+      "minSyncInterval": number;
+      "minItemsToTriggerSync": number;
+      "batchSize": number;
+      "rateLimit": number;
     };
   }
 }

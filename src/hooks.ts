@@ -8,6 +8,7 @@ import {
 import { getString, initLocale } from "./utils/locale";
 import { registerPrefsScripts } from "./modules/preferenceScript";
 import { createZToolkit } from "./utils/ztoolkit";
+import { getZ2RModule, clearZ2RModule } from "./modules/z2rModule";
 
 async function onStartup() {
   await Promise.all([
@@ -17,6 +18,16 @@ async function onStartup() {
   ]);
 
   initLocale();
+
+  // Initialize Z2R Module
+  const ztoolkit = createZToolkit();
+  const z2rModule = getZ2RModule(ztoolkit);
+  try {
+    await z2rModule.initialize();
+    ztoolkit.log('Z2R Module initialized successfully');
+  } catch (error) {
+    ztoolkit.log('Failed to initialize Z2R Module:', error);
+  }
 
   BasicExampleFactory.registerPrefs();
 
@@ -98,7 +109,18 @@ async function onMainWindowUnload(win: Window): Promise<void> {
   addon.data.dialog?.window?.close();
 }
 
-function onShutdown(): void {
+async function onShutdown(): Promise<void> {
+  // Shutdown Z2R Module
+  const ztoolkit = addon.data.ztoolkit;
+  if (ztoolkit) {
+    const z2rModule = getZ2RModule(ztoolkit);
+    if (z2rModule.isInitialized()) {
+      await z2rModule.shutdown();
+      ztoolkit.log('Z2R Module shut down successfully');
+    }
+    clearZ2RModule();
+  }
+
   ztoolkit.unregisterAll();
   addon.data.dialog?.window?.close();
   // Remove addon object

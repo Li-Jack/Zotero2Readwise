@@ -1,5 +1,9 @@
 import { defineConfig } from "zotero-plugin-scaffold";
 import pkg from "./package.json";
+import * as dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
 
 export default defineConfig({
   source: ["src", "addon"],
@@ -30,11 +34,22 @@ export default defineConfig({
       {
         entryPoints: ["src/index.ts"],
         define: {
-          __env__: `"${process.env.NODE_ENV}"`,
+          __env__: `"${process.env.NODE_ENV || "production"}"`,
+          __DEBUG__: process.env.DEBUG === "true" ? "true" : "false",
+          __BUILD_TARGET__: `"${process.env.BUILD_TARGET || "production"}"`,
+          __BUILD_TIME__: `"${new Date().toISOString()}"`,
+          __VERSION__: `"${pkg.version}"`,
         },
         bundle: true,
         target: "firefox115",
         outfile: `.scaffold/build/addon/content/scripts/${pkg.config.addonRef}.js`,
+        sourcemap: process.env.SOURCE_MAP === "true" ? "inline" : false,
+        minify: process.env.NODE_ENV === "production",
+        keepNames: process.env.NODE_ENV !== "production",
+        treeShaking: true,
+        format: "iife",
+        platform: "browser",
+        external: ["zotero"],
       },
     ],
   },

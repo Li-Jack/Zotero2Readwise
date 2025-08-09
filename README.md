@@ -1,412 +1,458 @@
-# Zotero Plugin Template
+# ZR-Sync (Zotero-Readwise Sync)
 
-[![zotero target version](https://img.shields.io/badge/Zotero-7-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
-[![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
+[![Zotero Version](https://img.shields.io/badge/Zotero-7-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
+[![License](https://img.shields.io/badge/License-AGPL%203.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![GitHub Release](https://img.shields.io/github/v/release/yourusername/zotero-z2r-readwise?style=flat-square)](https://github.com/yourusername/zotero-z2r-readwise/releases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/zotero-z2r-readwise/build.yml?style=flat-square)](https://github.com/yourusername/zotero-z2r-readwise/actions)
 
-This is a plugin template for [Zotero](https://www.zotero.org/).
+[English](#english) | [简体中文](#简体中文)
 
-[English](README.md) | [简体中文](doc/README-zhCN.md) | [Français](doc/README-frFR.md)
+## English
 
-- Documentation for plugins development
-  - [📖 Plugin Development Documentation](https://zotero-chinese.com/plugin-dev-guide/) (Chinese, not yet complete)
-  - [📖 Plugin Development Documentation for Zotero 7](https://www.zotero.org/support/dev/zotero_7_for_developers)
-- Tools for plugins development
-  - [🛠️ Zotero Plugin Toolkit](https://github.com/windingwind/zotero-plugin-toolkit) | [API Documentation](https://github.com/windingwind/zotero-plugin-toolkit/blob/master/docs/zotero-plugin-toolkit.md)
-  - [🛠️ Zotero Plugin Scaffold](https://github.com/northword/zotero-plugin-scaffold)
-  - [ℹ️ Zotero Type Definitions](https://github.com/windingwind/zotero-types)
-  - [📜 Zotero Source Code](https://github.com/zotero/zotero)
-  - [📌 Zotero Plugin Template](https://github.com/windingwind/zotero-plugin-template) (This repo)
+ZR-Sync is a powerful Zotero plugin that seamlessly synchronizes your research highlights, annotations, and notes between Zotero and Readwise. Perfect for researchers and readers who want to leverage the best of both platforms.
 
-> [!tip]
-> 👁 Watch this repo so that you can be notified whenever there are fixes & updates.
+### ✨ Features
 
-## Plugins built with this template
+- **📚 Bidirectional Sync**: Sync your highlights and notes both ways between Zotero and Readwise
+- **🔄 Smart Updates**: Only syncs changed items to minimize API calls
+- **🏷️ Tag Preservation**: Maintains tags and collections during sync
+- **📝 Rich Annotations**: Supports text highlights, area selections, and notes
+- **🔗 Deep Links**: Creates clickable links back to your Zotero items
+- **⚡ Background Sync**: Automatic periodic syncing without interrupting your workflow
+- **🛡️ Privacy First**: Your data stays secure with encrypted token storage
+- **📊 Progress Tracking**: Visual feedback during sync operations
+- **🎯 Selective Sync**: Choose specific collections or items to sync
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-better-notes?label=zotero-better-notes&style=flat-square)](https://github.com/windingwind/zotero-better-notes)
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-pdf-preview?label=zotero-pdf-preview&style=flat-square)](https://github.com/windingwind/zotero-pdf-preview)
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-pdf-translate?label=zotero-pdf-translate&style=flat-square)](https://github.com/windingwind/zotero-pdf-translate)
-[![GitHub Repo stars](https://img.shields.io/github/stars/windingwind/zotero-tag?label=zotero-tag&style=flat-square)](https://github.com/windingwind/zotero-tag)
-[![GitHub Repo stars](https://img.shields.io/github/stars/iShareStuff/ZoteroTheme?label=zotero-theme&style=flat-square)](https://github.com/iShareStuff/ZoteroTheme)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-reference?label=zotero-reference&style=flat-square)](https://github.com/MuiseDestiny/zotero-reference)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-citation?label=zotero-citation&style=flat-square)](https://github.com/MuiseDestiny/zotero-citation)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/ZoteroStyle?label=zotero-style&style=flat-square)](https://github.com/MuiseDestiny/ZoteroStyle)
-[![GitHub Repo stars](https://img.shields.io/github/stars/volatile-static/Chartero?label=Chartero&style=flat-square)](https://github.com/volatile-static/Chartero)
-[![GitHub Repo stars](https://img.shields.io/github/stars/l0o0/tara?label=tara&style=flat-square)](https://github.com/l0o0/tara)
-[![GitHub Repo stars](https://img.shields.io/github/stars/redleafnew/delitemwithatt?label=delitemwithatt&style=flat-square)](https://github.com/redleafnew/delitemwithatt)
-[![GitHub Repo stars](https://img.shields.io/github/stars/redleafnew/zotero-updateifsE?label=zotero-updateifsE&style=flat-square)](https://github.com/redleafnew/zotero-updateifsE)
-[![GitHub Repo stars](https://img.shields.io/github/stars/northword/zotero-format-metadata?label=zotero-format-metadata&style=flat-square)](https://github.com/northword/zotero-format-metadata)
-[![GitHub Repo stars](https://img.shields.io/github/stars/inciteful-xyz/inciteful-zotero-plugin?label=inciteful-zotero-plugin&style=flat-square)](https://github.com/inciteful-xyz/inciteful-zotero-plugin)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-gpt?label=zotero-gpt&style=flat-square)](https://github.com/MuiseDestiny/zotero-gpt)
-[![GitHub Repo stars](https://img.shields.io/github/stars/zoushucai/zotero-journalabbr?label=zotero-journalabbr&style=flat-square)](https://github.com/zoushucai/zotero-journalabbr)
-[![GitHub Repo stars](https://img.shields.io/github/stars/MuiseDestiny/zotero-figure?label=zotero-figure&style=flat-square)](https://github.com/MuiseDestiny/zotero-figure)
-[![GitHub Repo stars](https://img.shields.io/github/stars/l0o0/jasminum?label=jasminum&style=flat-square)](https://github.com/l0o0/jasminum)
-[![GitHub Repo stars](https://img.shields.io/github/stars/lifan0127/ai-research-assistant?label=ai-research-assistant&style=flat-square)](https://github.com/lifan0127/ai-research-assistant)
-[![GitHub Repo stars](https://img.shields.io/github/stars/daeh/zotero-markdb-connect?label=zotero-markdb-connect&style=flat-square)](https://github.com/daeh/zotero-markdb-connect)
-[![GitHub Repo stars](https://img.shields.io/github/stars/daeh/zotero-citation-tally?label=citation-tally&style=flat-square)](https://github.com/daeh/zotero-citation-tally)
+### 📋 Requirements
 
-If you are using this repo, I recommended that you put the following badge on your README:
+- Zotero 7.0 or later
+- Readwise account with API access
+- Active internet connection
 
-[![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
+### 🚀 Installation
 
-```md
-[![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
-```
+#### Method 1: Install from Release (Recommended)
 
-## Features
+1. Download the latest `.xpi` file from [Releases](https://github.com/yourusername/zotero-z2r-readwise/releases)
+2. In Zotero, go to **Tools → Add-ons**
+3. Click the gear icon ⚙️ and select **Install Add-on From File...**
+4. Select the downloaded `.xpi` file
+5. Restart Zotero
 
-- Event-driven, functional programming, under extensive skeleton;
-- Simple and user-friendly, works out-of-the-box.
-- Abundant examples in `src/modules/examples.ts`, covering most of the commonly used APIs in plugins (using [zotero-plugin-toolkit](https://github.com/windingwind/zotero-plugin-toolkit));
-- TypeScript support:
-  - Full type definition support for the whole Zotero project, which is written in JavaScript (using [zotero-types](https://github.com/windingwind/zotero-types));
-  - Global variables and environment setup;
-- Plugin develop/build/release workflow:
-  - ⭐ [New!] Auto hot reload! Whenever the source code is modified, automatically compile and reload. [See here→](#auto-hot-reload)
-  - Automatically generate/update plugin id/version, update configrations, and set environment variables (`development` / `production`);
-  - Automatically release to GitHub;
-- Prettier and ES Lint integration.
+#### Method 2: Install from Source
 
-## Examples
-
-This repo provides examples for [zotero-plugin-toolkit](https://github.com/windingwind/zotero-plugin-toolkit) APIs.
-
-Search `@example` in `src/examples.ts`. The examples are called in `src/hooks.ts`.
-
-### Basic Examples
-
-- registerNotifier
-- registerPrefs, unregisterPrefs
-
-### Shortcut Keys Examples
-
-- registerShortcuts
-- exampleShortcutLargerCallback
-- exampleShortcutSmallerCallback
-- exampleShortcutConflictionCallback
-
-### UI Examples
-
-![image](https://user-images.githubusercontent.com/33902321/211739774-cc5c2df8-5fd9-42f0-9cdf-0f2e5946d427.png)
-
-- registerStyleSheet(the official make-it-red example)
-- registerRightClickMenuItem
-- registerRightClickMenuPopup
-- registerWindowMenuWithSeprator
-- registerExtraColumn
-- registerExtraColumnWithCustomCell
-- registerCustomItemBoxRow
-- registerLibraryTabPanel
-- registerReaderTabPanel
-
-### Preference Pane Examples
-
-![image](https://user-images.githubusercontent.com/33902321/211737987-cd7c5c87-9177-4159-b975-dc67690d0490.png)
-
-- Preferences bindings
-- UI Events
-- Table
-- Locale
-
-See [`src/modules/preferenceScript.ts`](./src/modules/preferenceScript.ts)
-
-### HelperExamples
-
-![image](https://user-images.githubusercontent.com/33902321/215119473-e7d0d0ef-6d96-437e-b989-4805ffcde6cf.png)
-
-- dialogExample
-- clipboardExample
-- filePickerExample
-- progressWindowExample
-- vtableExample(See Preference Pane Examples)
-
-### PromptExamples
-
-An Obsidian-style prompt(popup command input) module. It accepts text command to run callback, with optional display in the popup.
-
-Activate with `Shift+P`.
-
-![image](https://user-images.githubusercontent.com/33902321/215120009-e7c7ed27-33a0-44fe-b021-06c272481a92.png)
-
-- registerAlertPromptExample
-
-## Quick Start Guide
-
-### 0 Requirement
-
-1. Install a beta version of Zotero: <https://www.zotero.org/support/beta_builds>
-2. Install [Node.js latest LTS version](https://nodejs.org/en/) and [Git](https://git-scm.com/)
-
-> [!note]
-> This guide assumes that you have an initial understanding of the basic structure and workings of the Zotero plugin. If you don't, please refer to the [documentation](https://www.zotero.org/support/dev/zotero_7_for_developers) and official plugin examples [Make It Red](https://github.com/zotero/make-it-red) first.
-
-### 1 Creat Your Repo
-
-1. Click `Use this template`
-2. Git clone your new repo
-   <details >
-   <summary>💡 Start with GitHub Codespace</summary>
-
-   _GitHub CodeSpace_ enables you getting started without the need to download code/IDE/dependencies locally.
-
-   Replace the steps above and build you first plugin in 30 seconds!
-   - Goto top of the [homepage](https://github.com/windingwind/zotero-plugin-template), click the green button `Use this template`, click `Open in codespace`. You may need to login to your GitHub account.
-   - Wait for codespace to load.
-
-   </details>
-
-3. Enter the repo folder
-
-### 2 Config Template Settings and Environment
-
-1. Modify the settings in `./package.json`, including:
-
-   ```jsonc
-   {
-     "version": "0.0.0",
-     "description": "",
-     "config": {
-       "addonName": "", // name to be displayed in the plugin manager
-       "addonID": "", // ID to avoid conflict. IMPORTANT!
-       "addonRef": "", // e.g. Element ID prefix
-       "addonInstance": "", // the plugin's root instance: Zotero.${addonInstance}
-       "prefsPrefix": "extensions.zotero.${addonRef}", // the prefix of prefs
-     },
-     "repository": {
-       "type": "git",
-       "url": "git+https://github.com/your-github-name/repo-name.git",
-     },
-     "author": "Your Name",
-     "bugs": {
-       "url": "https://github.com/your-github-name/repo-name/issues",
-     },
-     "homepage": "https://github.com/your-github-name/repo-name#readme",
-   }
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/zotero-z2r-readwise.git
+   cd zotero-z2r-readwise
    ```
 
-   > [!warning]
-   > Be careful to set the addonID and addonRef to avoid conflict.
-
-   If you need to host your XPI packages outside of GitHub, modify `updateURL` and add `xpiDownloadLink` in `zotero-plugin.config.ts`.
-
-2. Copy the environment variable file. Modify the commands that starts your installation of the beta Zotero.
-
-   > Create a development profile (Optional)  
-   > Start the beta Zotero with `/path/to/zotero -p`. Create a new profile and use it as your development profile. Do this only once
-
-   ```sh
-   cp .env.example .env
-   vim .env
+2. Install dependencies:
+   ```bash
+   npm install
    ```
 
-   If you are developing more than one plugin, you can store the bin path and profile path in the system environment variables, which can be omitted here.
+3. Build the plugin:
+   ```bash
+   npm run build
+   ```
 
-3. Install dependencies with `npm install`
+4. The `.xpi` file will be created in the `dist` folder
+5. Install in Zotero as described in Method 1
 
-   > If you are using `pnpm` as the package manager for your project, you need to add `public-hoist-pattern[]=*@types/bluebird*` to `.npmrc`, see <https://github.com/windingwind/zotero-types?tab=readme-ov-file#usage>.
+### ⚙️ Configuration
 
-   If you get `npm ERR! ERESOLVE unable to resolve dependency tree` with `npm install`, which is an upstream dependency bug of typescript-eslint, use the `npm i -f` command to install it.
+#### Initial Setup
 
-### 3 Coding
+1. **Get your Readwise API Token**:
+   - Log in to [Readwise](https://readwise.io)
+   - Go to [readwise.io/access_token](https://readwise.io/access_token)
+   - Copy your access token
 
-Start development server with `npm start`, it will:
+2. **Configure ZR-Sync**:
+   - In Zotero, go to **Edit → Preferences** (Windows/Linux) or **Zotero → Settings** (Mac)
+   - Click on **ZR-Sync** tab
+   - Paste your Readwise API token
+   - Configure sync preferences (see below)
 
-- Prebuild the plugin in development mode
-- Start Zotero with plugin loaded from `build/`
-- Watch `src/**` and `addon/**`, rebuild and reload plugin in Zotero when source code changed.
+#### Sync Settings
 
-#### Auto Hot Reload
+| Setting | Description | Default |
+|---------|-------------|---------|
+| **API Token** | Your Readwise access token | Required |
+| **Auto Sync** | Enable automatic background sync | Enabled |
+| **Sync Interval** | How often to sync (minutes) | 30 |
+| **Sync Direction** | Zotero → Readwise, Readwise → Zotero, or Both | Zotero → Readwise |
+| **Include Collections** | Sync collection information as tags | Enabled |
+| **Include Tags** | Sync Zotero tags to Readwise | Enabled |
+| **Batch Size** | Number of highlights per API request | 100 |
+| **Highlight Colors** | Map Zotero colors to Readwise locations | Automatic |
 
-Tired of endless restarting? Forget about it!
+### 📖 Usage Guide
 
-1. Run `npm start`.
-2. Coding. (Yes, that's all)
+#### Manual Sync
 
-When file changes are detected in `src` or `addon`, the plugin will be automatically compiled and reloaded.
+1. Click **Tools → Sync with Readwise** in Zotero menu
+2. A progress window will show sync status
+3. Check the console for detailed logs (if enabled)
 
-<details style="text-indent: 2em">
-<summary>💡 Steps to add this feature to an existing plugin</summary>
+#### First Sync
 
-Please see [zotero-plugin-scaffold](https://github.com/northword/zotero-plugin-scaffold).
+The first sync may take longer as it needs to:
+- Create book entries in Readwise for your Zotero items
+- Upload all existing highlights and notes
+- Establish sync state for future incremental updates
 
-</details>
+**Recommended approach for large libraries:**
+1. Start with a small collection as a test
+2. Verify the sync worked correctly
+3. Gradually add more collections
+4. Perform full library sync
 
-#### Debug in Zotero
+#### Automatic Sync
 
-You can also:
+When enabled, ZR-Sync will:
+- Sync automatically at the configured interval
+- Detect changes in your Zotero library
+- Queue sync operations to prevent conflicts
+- Show minimal UI unless errors occur
 
-- Test code snippets in Tools -> Developer -> Run Javascript;
-- Debug output with `Zotero.debug()`. Find the outputs in Help->Debug Output Logging->View Output;
-- Debug UI. Zotero is built on the Firefox XUL framework. Debug XUL UI with software like [XUL Explorer](https://udn.realityripple.com/docs/Archive/Mozilla/XUL_Explorer).
-  > XUL Documentation: <http://www.devdoc.net/web/developer.mozilla.org/en-US/docs/XUL.html>
+#### Viewing Synced Items
 
-### 4 Build
+**In Readwise:**
+- Your Zotero items appear as books
+- Each highlight includes source information
+- Tags and collections are preserved
+- Deep links connect back to Zotero
 
-Run `npm run build` to build the plugin in production mode. The build output will be located in the `.scaffold/build/` directory.
+**In Zotero:**
+- Synced items show last sync timestamp
+- Check the ZR-Sync status column (if enabled)
+- Review sync history in preferences
 
-For detailed build steps, refer to the [zotero-plugin-scaffold documentation](https://northword.github.io/zotero-plugin-scaffold/build.html). In short, the process can be divided into the following steps:
+### 🔧 Troubleshooting
 
-- Create or clear the `build/` directory
-- Copy `addon/**` to `.scaffold/build/addon/**`
-- Replace placeholders: substitute keywords and configurations defined in `package.json`
-- Prepare localization files to avoid conflicts (see the [zotero_7_for_developers](https://www.zotero.org/support/dev/zotero_7_for_developers#avoiding_localization_conflicts) for more information):
-  - Rename `**/*.flt` to `**/${addonRef}-*.flt`
-  - Prefix each message with `addonRef-`
-  - Generate type declaration files for FTL messages
-- Prepare preferences files: prefix preference keys with `package.json#prefsPrefix` and generate type declaration files for preferences
-- Use ESBuild to compile `.ts` source code to `.js`, building from `src/index.ts` to `.scaffold/build/addon/content/scripts`
-- _(Production mode only)_ Compress the `.scaffold/build/addon` directory into `.scaffold/build/*.xpi`
-- _(Production mode only)_ Prepare `update.json` or `update-beta.json`
+#### Common Issues
 
-> [!note]
->
-> **What's the difference between dev & prod?**
->
-> - This environment variable is stored in `Zotero.${addonInstance}.data.env`. The outputs to console is disabled in prod mode.
-> - You can decide what users cannot see/use based on this variable.
-> - In production mode, the build script will pack the plugin and update the `update.json`.
+**"Invalid API Token" Error**
+- Verify your token at [readwise.io/access_token](https://readwise.io/access_token)
+- Ensure no extra spaces when pasting
+- Check if your Readwise subscription is active
 
-### 5 Release
+**Sync Not Starting**
+- Check internet connection
+- Verify Zotero has network access
+- Look for errors in Debug Output (Tools → Debug Output Logging)
+- Ensure the plugin is enabled in Add-ons
 
-To build and release, use
+**Missing Highlights**
+- Confirm highlights are saved in Zotero (not just in PDF viewer)
+- Check sync direction settings
+- Verify the item type is supported (PDFs, EPUBs, web pages)
+- Review filter settings in preferences
 
-```shell
-# version increase, git add, commit and push
-# then on ci, npm run build, and release to GitHub
-npm run release
-```
+**Duplicate Entries**
+- This can occur if sync state is corrupted
+- Go to Preferences → ZR-Sync → Advanced
+- Click "Reset Sync State" (this won't delete data)
+- Perform a fresh sync
 
-> [!note]
-> This will use [Bumpp](https://github.com/antfu-collective/bumpp) to prompt for the new version number, locally bump the version, run any (pre/post)version scripts defined in `package.json`, commit, build (optional), tag the commit with the version number and push commits and git tags. Bumpp can be configured in `zotero-plugin-config.ts`; for example, add `release: { bumpp: { execute: "npm run build" } }` to also build before committing.
->
-> Subsequently GitHub Action will rebuild the plugin and use `zotero-plugin-scaffold`'s `release` script to publish the XPI to GitHub Release. In addition, a separate release (tag: `release`) will be created or updated that includes update manifests `update.json` and `update-beta.json` as assets. These will be available at `https://github.com/{{owner}}/{{repo}}/releases/download/release/update*.json`.
+**Performance Issues**
+- Reduce batch size in settings
+- Disable auto-sync during intensive work
+- Consider syncing specific collections instead of entire library
+- Check Zotero database integrity (Tools → Database Maintenance)
 
-#### About Prerelease
+#### Debug Mode
 
-The template defines `prerelease` as the beta version of the plugin, when you select a `prerelease` version in Bumpp (with `-` in the version number). The build script will create a new `update-beta.json` for prerelease use, which ensures that users of the regular version won't be able to update to the beta. Only users who have manually downloaded and installed the beta will be able to update to the next beta automatically.
+To enable detailed logging:
+1. Go to Preferences → ZR-Sync → Advanced
+2. Enable "Debug Logging"
+3. Reproduce the issue
+4. Check the log file at: `[Zotero Data Directory]/zr-sync-debug.log`
 
-When the next regular release is updated, both `update.json` and `update-beta.json` will be updated (on the special `release` release, see above) so that both regular and beta users can update to the new regular release.
+#### Getting Help
 
-> [!warning]
-> Strictly, distinguishing between Zotero 6 and Zotero 7 compatible plugin versions should be done by configuring `applications.zotero.strict_min_version` in `addons.__addonID__.updates[]` of `update.json` respectively, so that Zotero recognizes it properly, see <https://www.zotero.org/support/dev/zotero_7_for_developers#updaterdf_updatesjson>.
+1. Check the [FAQ](https://github.com/yourusername/zotero-z2r-readwise/wiki/FAQ)
+2. Search [existing issues](https://github.com/yourusername/zotero-z2r-readwise/issues)
+3. Create a new issue with:
+   - Zotero version
+   - ZR-Sync version
+   - Error messages
+   - Debug log (if applicable)
 
-## Details
+### 🔒 Privacy & Security
 
-### About Hooks
+#### Data Handling
 
-> See also [`src/hooks.ts`](https://github.com/windingwind/zotero-plugin-template/blob/main/src/hooks.ts)
+- **Local Storage**: API tokens are encrypted using Zotero's secure storage
+- **Network Traffic**: All communication uses HTTPS
+- **No Third-Party Access**: Direct connection between your Zotero and Readwise only
+- **No Analytics**: We don't collect usage data or statistics
+- **Open Source**: Full code transparency for security audits
 
-1. When install/enable/startup triggered from Zotero, `bootstrap.js` > `startup` is called
-   - Wait for Zotero ready
-   - Load `index.js` (the main entrance of plugin code, built from `index.ts`)
-   - Register resources if Zotero 7+
-2. In the main entrance `index.js`, the plugin object is injected under `Zotero` and `hooks.ts` > `onStartup` is called.
-   - Initialize anything you want, including notify listeners, preference panes, and UI elements.
-3. When uninstall/disabled triggered from Zotero, `bootstrap.js` > `shutdown` is called.
-   - `events.ts` > `onShutdown` is called. Remove UI elements, preference panes, or anything created by the plugin.
-   - Remove scripts and release resources.
+#### Data Synced
 
-### About Global Variables
+The following data is synchronized:
+- ✅ Highlight text and notes
+- ✅ Item metadata (title, author, date)
+- ✅ Tags and collections (optional)
+- ✅ Color coding and annotation types
+- ❌ PDF files themselves
+- ❌ Personal information beyond what's in annotations
+- ❌ Zotero account credentials
 
-> See also [`src/index.ts`](https://github.com/windingwind/zotero-plugin-template/blob/main/src/index.ts)
+#### Data Retention
 
-The bootstrapped plugin runs in a sandbox, which does not have default global variables like `Zotero` or `window`, which we used to have in the overlay plugins' window environment.
+- Sync state is stored locally in Zotero preferences
+- Can be completely removed by uninstalling the plugin
+- Readwise retains data per their [privacy policy](https://readwise.io/privacy)
 
-This template registers the following variables to the global scope:
+### 🤝 Contributing
 
-```plain
-Zotero, ZoteroPane, Zotero_Tabs, window, document, rootURI, ztoolkit, addon;
-```
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-### Create Elements API
+#### Development Setup
 
-The plugin template provides new APIs for bootstrap plugins. We have two reasons to use these APIs, instead of the `createElement/createElementNS`:
+1. Fork and clone the repository
+2. Install dependencies: `npm install`
+3. Copy `.env.example` to `.env` and configure
+4. Run development build: `npm run dev`
+5. Run tests: `npm test`
 
-- In bootstrap mode, plugins have to clean up all UI elements on exit (disable or uninstall), which is very annoying. Using the `createElement`, the plugin template will maintain these elements. Just `unregisterAll` at the exit.
-- Zotero 7 requires createElement()/createElementNS() → createXULElement() for remaining XUL elements, while Zotero 6 doesn't support `createXULElement`. The React.createElement-like API `createElement` detects namespace(xul/html/svg) and creates elements automatically, with the return element in the corresponding TS element type.
+### 📜 License
 
-```ts
-createElement(document, "div"); // returns HTMLDivElement
-createElement(document, "hbox"); // returns XUL.Box
-createElement(document, "button", { namespace: "xul" }); // manually set namespace. returns XUL.Button
-```
+This project is licensed under the AGPL-3.0 License - see [LICENSE](LICENSE) file for details.
 
-### About Zotero API
+### 🙏 Acknowledgments
 
-Zotero docs are outdated and incomplete. Clone <https://github.com/zotero/zotero> and search the keyword globally.
+- [Zotero](https://www.zotero.org) for the amazing research tool
+- [Readwise](https://readwise.io) for the excellent reading platform
+- [zotero-plugin-toolkit](https://github.com/windingwind/zotero-plugin-toolkit) for development utilities
+- All contributors and testers
 
-> ⭐The [zotero-types](https://github.com/windingwind/zotero-types) provides most frequently used Zotero APIs. It's included in this template by default. Your IDE would provide hint for most of the APIs.
+---
 
-A trick for finding the API you want:
+## 简体中文
 
-Search the UI label in `.xhtml`/`.flt` files, find the corresponding key in locale file. Then search this keys in `.js`/`.jsx` files.
+ZR-Sync 是一个强大的 Zotero 插件，可以在 Zotero 和 Readwise 之间无缝同步您的研究高亮、注释和笔记。适合希望充分利用两个平台优势的研究人员和读者。
 
-### Directory Structure
+### ✨ 功能特性
 
-This section shows the directory structure of a template.
+- **📚 双向同步**：在 Zotero 和 Readwise 之间双向同步高亮和笔记
+- **🔄 智能更新**：仅同步更改的项目，最小化 API 调用
+- **🏷️ 标签保留**：同步时保持标签和分类
+- **📝 丰富注释**：支持文本高亮、区域选择和笔记
+- **🔗 深度链接**：创建可点击的链接返回到 Zotero 项目
+- **⚡ 后台同步**：自动定期同步，不中断工作流程
+- **🛡️ 隐私优先**：使用加密令牌存储确保数据安全
+- **📊 进度跟踪**：同步操作时的可视化反馈
+- **🎯 选择性同步**：选择特定的分类或项目进行同步
 
-- All `.js/.ts` code files are in `./src`;
-- Addon config files: `./addon/manifest.json`;
-- UI files: `./addon/content/*.xhtml`.
-- Locale files: `./addon/locale/**/*.flt`;
-- Preferences file: `./addon/prefs.js`;
+### 📋 系统要求
 
-```shell
-.
-|-- .github/                  # github conf
-|-- .vscode/                  # vscode conf
-|-- addon                     # static files
-|   |-- bootstrap.js
-|   |-- content
-|   |   |-- icons
-|   |   |   |-- favicon.png
-|   |   |   `-- favicon@0.5x.png
-|   |   |-- preferences.xhtml
-|   |   `-- zoteroPane.css
-|   |-- locale
-|   |   |-- en-US
-|   |   |   |-- addon.ftl
-|   |   |   |-- mainWindow.ftl
-|   |   |   `-- preferences.ftl
-|   |   `-- zh-CN
-|   |       |-- addon.ftl
-|   |       |-- mainWindow.ftl
-|   |       `-- preferences.ftl
-|   |-- manifest.json
-|   `-- prefs.js
-|-- build                         # build dir
-|-- node_modules
-|-- src                           # source code of scripts
-|   |-- addon.ts                  # base class
-|   |-- hooks.ts                  # lifecycle hooks
-|   |-- index.ts                  # main entry
-|   |-- modules                   # sub modules
-|   |   |-- examples.ts
-|   |   `-- preferenceScript.ts
-|   `-- utils                 # utilities
-|       |-- locale.ts
-|       |-- prefs.ts
-|       |-- wait.ts
-|       |-- window.ts
-|       `-- ztoolkit.ts
-|-- typings                   # ts typings
-|   `-- global.d.ts
+- Zotero 7.0 或更高版本
+- 拥有 API 访问权限的 Readwise 账户
+- 活跃的互联网连接
 
-|-- .env                      # enviroment config (do not check into repo)
-|-- .env.example              # template of enviroment config, https://github.com/northword/zotero-plugin-scaffold
-|-- .gitignore                # git conf
-|-- .gitattributes            # git conf
-|-- .prettierrc               # prettier conf, https://prettier.io/
-|-- eslint.config.mjs         # eslint conf, https://eslint.org/
-|-- LICENSE
-|-- package-lock.json
-|-- package.json
-|-- tsconfig.json             # typescript conf, https://code.visualstudio.com/docs/languages/jsconfig
-|-- README.md
-`-- zotero-plugin.config.ts   # scaffold conf, https://github.com/northword/zotero-plugin-scaffold
-```
+### 🚀 安装指南
 
-## Disclaimer
+#### 方法 1：从发布版本安装（推荐）
 
-Use this code under AGPL. No warranties are provided. Keep the laws of your locality in mind!
+1. 从 [Releases](https://github.com/yourusername/zotero-z2r-readwise/releases) 下载最新的 `.xpi` 文件
+2. 在 Zotero 中，进入 **工具 → 附加组件**
+3. 点击齿轮图标 ⚙️ 并选择 **从文件安装附加组件...**
+4. 选择下载的 `.xpi` 文件
+5. 重启 Zotero
 
-If you want to change the license, please contact me at <wyzlshx@foxmail.com>
+#### 方法 2：从源代码安装
+
+1. 克隆仓库：
+   ```bash
+   git clone https://github.com/yourusername/zotero-z2r-readwise.git
+   cd zotero-z2r-readwise
+   ```
+
+2. 安装依赖：
+   ```bash
+   npm install
+   ```
+
+3. 构建插件：
+   ```bash
+   npm run build
+   ```
+
+4. `.xpi` 文件将创建在 `dist` 文件夹中
+5. 按照方法 1 中的说明在 Zotero 中安装
+
+### ⚙️ 配置说明
+
+#### 初始设置
+
+1. **获取 Readwise API 令牌**：
+   - 登录 [Readwise](https://readwise.io)
+   - 访问 [readwise.io/access_token](https://readwise.io/access_token)
+   - 复制您的访问令牌
+
+2. **配置 ZR-Sync**：
+   - 在 Zotero 中，进入 **编辑 → 首选项**（Windows/Linux）或 **Zotero → 设置**（Mac）
+   - 点击 **ZR-Sync** 标签
+   - 粘贴您的 Readwise API 令牌
+   - 配置同步首选项（见下文）
+
+#### 同步设置
+
+| 设置 | 描述 | 默认值 |
+|------|------|--------|
+| **API 令牌** | 您的 Readwise 访问令牌 | 必需 |
+| **自动同步** | 启用自动后台同步 | 启用 |
+| **同步间隔** | 同步频率（分钟） | 30 |
+| **同步方向** | Zotero → Readwise、Readwise → Zotero 或双向 | Zotero → Readwise |
+| **包含分类** | 将分类信息作为标签同步 | 启用 |
+| **包含标签** | 将 Zotero 标签同步到 Readwise | 启用 |
+| **批处理大小** | 每个 API 请求的高亮数量 | 100 |
+| **高亮颜色** | 将 Zotero 颜色映射到 Readwise 位置 | 自动 |
+
+### 📖 使用指南
+
+#### 手动同步
+
+1. 在 Zotero 菜单中点击 **工具 → 与 Readwise 同步**
+2. 进度窗口将显示同步状态
+3. 查看控制台获取详细日志（如果启用）
+
+#### 首次同步
+
+首次同步可能需要更长时间，因为需要：
+- 在 Readwise 中为您的 Zotero 项目创建书籍条目
+- 上传所有现有的高亮和笔记
+- 建立同步状态以供未来增量更新
+
+**大型文库的推荐方法：**
+1. 从小型分类开始测试
+2. 验证同步是否正确工作
+3. 逐步添加更多分类
+4. 执行完整文库同步
+
+#### 自动同步
+
+启用后，ZR-Sync 将：
+- 按配置的间隔自动同步
+- 检测 Zotero 文库中的更改
+- 排队同步操作以防止冲突
+- 除非出现错误，否则显示最少的 UI
+
+#### 查看同步项目
+
+**在 Readwise 中：**
+- 您的 Zotero 项目显示为书籍
+- 每个高亮包含来源信息
+- 保留标签和分类
+- 深度链接连接回 Zotero
+
+**在 Zotero 中：**
+- 同步的项目显示最后同步时间戳
+- 检查 ZR-Sync 状态列（如果启用）
+- 在首选项中查看同步历史
+
+### 🔧 故障排查
+
+#### 常见问题
+
+**"无效的 API 令牌" 错误**
+- 在 [readwise.io/access_token](https://readwise.io/access_token) 验证您的令牌
+- 确保粘贴时没有额外的空格
+- 检查您的 Readwise 订阅是否有效
+
+**同步未启动**
+- 检查互联网连接
+- 验证 Zotero 具有网络访问权限
+- 在调试输出中查找错误（工具 → 调试输出日志）
+- 确保插件在附加组件中已启用
+
+**缺少高亮**
+- 确认高亮已保存在 Zotero 中（不仅仅在 PDF 查看器中）
+- 检查同步方向设置
+- 验证项目类型是否受支持（PDF、EPUB、网页）
+- 查看首选项中的过滤器设置
+
+**重复条目**
+- 如果同步状态损坏可能会发生这种情况
+- 进入首选项 → ZR-Sync → 高级
+- 点击"重置同步状态"（这不会删除数据）
+- 执行全新同步
+
+**性能问题**
+- 在设置中减少批处理大小
+- 在密集工作期间禁用自动同步
+- 考虑同步特定分类而不是整个文库
+- 检查 Zotero 数据库完整性（工具 → 数据库维护）
+
+#### 调试模式
+
+启用详细日志记录：
+1. 进入首选项 → ZR-Sync → 高级
+2. 启用"调试日志"
+3. 重现问题
+4. 检查日志文件：`[Zotero 数据目录]/zr-sync-debug.log`
+
+#### 获取帮助
+
+1. 查看 [常见问题](https://github.com/yourusername/zotero-z2r-readwise/wiki/FAQ)
+2. 搜索 [现有问题](https://github.com/yourusername/zotero-z2r-readwise/issues)
+3. 创建新问题并包含：
+   - Zotero 版本
+   - ZR-Sync 版本
+   - 错误消息
+   - 调试日志（如适用）
+
+### 🔒 隐私与安全
+
+#### 数据处理
+
+- **本地存储**：API 令牌使用 Zotero 的安全存储进行加密
+- **网络流量**：所有通信使用 HTTPS
+- **无第三方访问**：仅在您的 Zotero 和 Readwise 之间直接连接
+- **无分析**：我们不收集使用数据或统计信息
+- **开源**：完全的代码透明度，可进行安全审计
+
+#### 同步的数据
+
+同步以下数据：
+- ✅ 高亮文本和笔记
+- ✅ 项目元数据（标题、作者、日期）
+- ✅ 标签和分类（可选）
+- ✅ 颜色编码和注释类型
+- ❌ PDF 文件本身
+- ❌ 注释之外的个人信息
+- ❌ Zotero 账户凭据
+
+#### 数据保留
+
+- 同步状态本地存储在 Zotero 首选项中
+- 可通过卸载插件完全删除
+- Readwise 根据其[隐私政策](https://readwise.io/privacy)保留数据
+
+### 🤝 贡献
+
+欢迎贡献！请参阅 [CONTRIBUTING.md](CONTRIBUTING.md) 了解指南。
+
+#### 开发设置
+
+1. Fork 并克隆仓库
+2. 安装依赖：`npm install`
+3. 将 `.env.example` 复制到 `.env` 并配置
+4. 运行开发构建：`npm run dev`
+5. 运行测试：`npm test`
+
+### 📜 许可证
+
+本项目采用 AGPL-3.0 许可证 - 详见 [LICENSE](LICENSE) 文件。
+
+### 🙏 致谢
+
+- [Zotero](https://www.zotero.org) 提供了出色的研究工具
+- [Readwise](https://readwise.io) 提供了优秀的阅读平台
+- [zotero-plugin-toolkit](https://github.com/windingwind/zotero-plugin-toolkit) 提供了开发工具
+- 所有贡献者和测试者

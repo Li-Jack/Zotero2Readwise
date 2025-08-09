@@ -1,11 +1,17 @@
+/**
+ * Z2R Preference Utilities
+ * Manages preferences for the Z2R (Zotero to Readwise) plugin
+ */
+
 import { config } from "../../package.json";
 
 type PluginPrefsMap = _ZoteroTypes.Prefs["PluginPrefsMap"];
 
+// Z2R preference prefix: extensions.zotero.z2r
 const PREFS_PREFIX = config.prefsPrefix;
 
 /**
- * Get preference value.
+ * Get Z2R preference value.
  * Wrapper of `Zotero.Prefs.get`.
  * @param key
  */
@@ -14,7 +20,7 @@ export function getPref<K extends keyof PluginPrefsMap>(key: K) {
 }
 
 /**
- * Set preference value.
+ * Set Z2R preference value.
  * Wrapper of `Zotero.Prefs.set`.
  * @param key
  * @param value
@@ -27,7 +33,7 @@ export function setPref<K extends keyof PluginPrefsMap>(
 }
 
 /**
- * Clear preference value.
+ * Clear Z2R preference value.
  * Wrapper of `Zotero.Prefs.clear`.
  * @param key
  */
