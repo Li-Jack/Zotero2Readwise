@@ -31,4 +31,10 @@ npm-debug.log*
 
 # Third-party toolkit (embedded git repo)
 zotero-plugin-toolkit/
+
+# Trae documents and Vercel deployment files
+.trae/
+.vercel/
+
+# macOS system files (duplicate entry cleaned up)
 .DS_Store
