@@ -31,3 +31,4 @@ npm-debug.log*
 
 # Third-party toolkit (embedded git repo)
 zotero-plugin-toolkit/
+.DS_Store
