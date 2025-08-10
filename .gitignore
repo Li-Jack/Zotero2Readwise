@@ -1,13 +1,12 @@
-<<<<<<< HEAD
-# Node modules
+# Build/Dependencies
 node_modules/
-
-# Build directories
 .scaffold/
 build/
 dist/
+coverage/
+.nyc_output/
 
-# Package files
+# Packages/Artifacts
 *.xpi
 *.zip
 
@@ -16,39 +15,20 @@ dist/
 .env.local
 .env.*.local
 
-# IDE
-=======
-# Exclude zotero-plugin-template directory
-zotero-plugin-template/
-
-# macOS system files
-.DS_Store
-.AppleDouble
-.LSOverride
-Thumbs.db
-
-# Build artifacts
-*.xpi
-build/
-dist/
-
-# Node modules
-node_modules/
-
-# IDE files
->>>>>>> 3130168114a5d785f34f9724e8d56a54809ef1f9
+# IDE specific files
 .vscode/
 .idea/
 *.swp
 *.swo
-<<<<<<< HEAD
 *~
 
-# OS
+# OS generated files
 .DS_Store
 Thumbs.db
+.AppleDouble
+.LSOverride
 
-# Logs
+# Log files
 logs/
 *.log
 npm-debug.log*
@@ -56,33 +36,15 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Test coverage
-coverage/
-.nyc_output/
-
 # Temporary files
 tmp/
 temp/
 *.tmp
-=======
-
-# Logs
-*.log
-npm-debug.log*
-
-# Temporary files
-*.tmp
 *.temp
 
-# Third-party toolkit (embedded git repo)
-zotero-plugin-toolkit/
+# Project Specific Ignores
 zotero-plugin-template/
+zotero-plugin-toolkit/
 Zotero2Readwise/
-
-# Trae documents and Vercel deployment files
 .trae/
 .vercel/
-
-# macOS system files (duplicate entry cleaned up)
-.DS_Store
->>>>>>> 3130168114a5d785f34f9724e8d56a54809ef1f9
