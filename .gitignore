@@ -1,0 +1,54 @@
+# Build/Dependencies
+node_modules/
+*/.scaffold/
+build/
+*/dist/
+*/coverage/
+.nyc_output/
+
+# Packages/Artifacts
+*.xpi
+*.zip
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Project Specific Ignores
+zotero-plugin-template/
+zotero-plugin-toolkit/
+Zotero2Readwise/
+.trae/
+.vercel/
+
+# User request: Keep local but do not track
+docs/
+ZR/
