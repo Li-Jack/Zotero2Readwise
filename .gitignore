@@ -31,6 +31,8 @@ npm-debug.log*
 
 # Third-party toolkit (embedded git repo)
 zotero-plugin-toolkit/
+zotero-plugin-template/
+Zotero2Readwise/
 
 # Trae documents and Vercel deployment files
 .trae/
