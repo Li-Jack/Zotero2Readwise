@@ -48,3 +48,7 @@ zotero-plugin-toolkit/
 Zotero2Readwise/
 .trae/
 .vercel/
+
+# User request: Keep local but do not track
+docs/
+ZR/
