@@ -3,3 +3,4 @@
   "include": ["src", "typings"],
   "exclude": ["build", "addon"]
 }
+  
